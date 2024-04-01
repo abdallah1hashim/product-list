@@ -18,9 +18,9 @@ function Box({ data }) {
       <p>{data.sku}</p>
       <p>{data.name}</p>
       <p>{currency(data.price).format()}</p>
-      {data.size && <p>Size: {data.size + " MB"}</p>}
-      {data.weight && <p>Weight: {data.weight + " KG"}</p>}
-      {data.dimension && <p>Dimension: {data.dimension}</p>}
+      {data.type === 1 && <p>Dimension: {data.value}</p>}
+      {data.type === 2 && <p>Weight: {data.value + " KG"}</p>}
+      {data.type === 3 && <p>Size: {data.value + " MB"}</p>}
       <Delete />
     </StyledBox>
   );

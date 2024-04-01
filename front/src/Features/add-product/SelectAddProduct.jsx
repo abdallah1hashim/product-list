@@ -12,14 +12,21 @@ const Div = styled.div`
   align-items: center;
 `;
 
-function SelectAddProduct() {
+function SelectAddProduct({ type, setType }) {
   return (
     <Div>
       <label htmlFor="productType">Type Switcher </label>
-      <StyledSelect id="productType" defaultValue="Type Switcher">
-        <option>DVD</option>
-        <option>Furniture</option>
-        <option>Weight</option>
+      <StyledSelect
+        required
+        name="type"
+        id="productType"
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+      >
+        <option disabled>chosse a type</option>
+        <option value={1}>Furniture</option>
+        <option value={2}>Book</option>
+        <option value={3}>Disc</option>
       </StyledSelect>
     </Div>
   );
