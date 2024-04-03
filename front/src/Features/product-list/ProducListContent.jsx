@@ -9,9 +9,9 @@ const ListLayout = styled.div`
   gap: 40px;
 `;
 
-function ProducListContent() {
-  const { data } = useProductCollection();
-
+function ProducListContent({ data }) {
+  const { data: apiData } = useProductCollection();
+  console.log(apiData);
   return (
     <ListLayout>
       {data && data.map((data) => <Box data={data} key={data.productId} />)}

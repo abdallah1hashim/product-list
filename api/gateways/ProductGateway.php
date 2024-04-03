@@ -50,26 +50,9 @@ INNER JOIN furniture ON products.productId = furniture.productId;
         $stmt->execute();
 
         $productId = $this->conn->lastInsertId();
-        switch ((int)$data["type"]) {
-            case 1: // furniture
-                $sql = "INSERT INTO furniture (value, productId) VALUES (:dimension, :productId)";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindValue(":dimension", $data['dimension'], PDO::PARAM_STR);
-                break;
-            case 2: // book
-                $sql = "INSERT INTO book (value, productId) VALUES (:weight, :productId)";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindValue(":weight", $data["weight"], PDO::PARAM_INT);
-                break;
-            case 3: // disc
-                $sql = "INSERT INTO disc (value, productId) VALUES (:size, :productId)";
-                $stmt = $this->conn->prepare($sql);
-                $stmt->bindValue(":size", $data["size"], PDO::PARAM_INT);
-                break;
-        }
 
-        $stmt->bindValue(":productId", $productId, PDO::PARAM_INT);
-        $stmt->execute();
+        $product = ProductFactory::createProduct($data);
+        $product->insertAdditionalData($data, $productId, $this->conn);
 
         return $productId;
     }
