@@ -27,6 +27,7 @@ function ProductList() {
   const { mutate } = useDeleteProduct();
 
   function handleClick() {
+    if (deleteList.current.productId.length === 0) return;
     mutate(deleteList.current);
   }
 

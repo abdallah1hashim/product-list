@@ -12,12 +12,10 @@ export async function addProduct(data) {
   return req;
 }
 export async function deleteProduct(data) {
-  console.log(data);
   const req = await fetch("http://localhost/product-list/api/products", {
     method: "DELETE",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
-  console.log(req);
   return req;
 }
