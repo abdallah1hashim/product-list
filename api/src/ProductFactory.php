@@ -1,5 +1,4 @@
 <?php
-
 class ProductFactory
 {
     private static $productTypes = [
@@ -15,6 +14,6 @@ class ProductFactory
         }
 
         $className = self::$productTypes[$data['type']];
-        return new $className();
+        return new $className;
     }
 }

@@ -1,5 +1,11 @@
 <?php
 
+require_once __DIR__ . "/../src/ProductFactory.php";
+require_once __DIR__ . "/../src/ProductInterface.php";
+require_once __DIR__ . "/../src/Disc.php";
+require_once __DIR__ . "/../src/Furniture.php";
+require_once __DIR__ . "/../src/Book.php";
+
 class ProductGateway
 {
     private PDO $conn;
@@ -37,6 +43,7 @@ INNER JOIN furniture ON products.productId = furniture.productId;
 
     public function create(array $data): string
     {
+
         $sql = "INSERT INTO products (name, sku, price, type)
         VALUES (:name, :sku,:price ,:type)";
 
@@ -56,35 +63,13 @@ INNER JOIN furniture ON products.productId = furniture.productId;
 
         return $productId;
     }
-    public function deleteProduct($productId, $type)
+    public function deleteProduct($productId)
     {
-        $sql = "";
-        $stmt = $this->conn->prepare("");
-
-        switch ((int)$type) {
-            case 1: // furniture
-                $sql = "DELETE FROM furniture WHERE productId = (:productId)";
-                break;
-            case 2: // book
-                $sql = "DELETE FROM book WHERE productId = (:productId)";
-                break;
-            case 3: // disc
-                $sql = "DELETE FROM disc WHERE productId = (:productId)";
-                break;
-            default:
-                // Handle default case
-                return false;
+        foreach ($productId as $id) {
+            $sql = "DELETE FROM products WHERE productId = (:productId)";
+            $stmt = $this->conn->prepare($sql);
+            $stmt->bindValue(":productId", $id, PDO::PARAM_INT);
+            $stmt->execute();
         }
-
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":productId", $productId, PDO::PARAM_STR);
-        $stmt->execute();
-
-        $sql = "DELETE FROM products WHERE productId = (:productId)";
-        $stmt = $this->conn->prepare($sql);
-        $stmt->bindValue(":productId", $productId, PDO::PARAM_STR);
-        $stmt->execute();
-
-        return true;
     }
 }

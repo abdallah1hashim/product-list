@@ -17,8 +17,12 @@ function FormAddProduct() {
   const { mutate } = useAddProduct();
 
   function onSubmit(data) {
-    data.type = type;
-    data.dimension = `${data.height}x${data.width}x${data.length}`;
+    data.type = +type;
+    console.log(type);
+    if (+data.type === 1)
+      data.value = `${data.height}x${data.width}x${data.length}`;
+    if (+data.type === 2) data.value = data.weight;
+    if (+data.type === 3) data.value = data.size;
     mutate(data);
   }
 

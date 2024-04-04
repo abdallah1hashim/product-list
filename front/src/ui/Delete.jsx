@@ -5,10 +5,10 @@ const Div = styled.div`
   top: 10px;
   left: 10px;
 `;
-function Delete() {
+function Delete({ onChange }) {
   return (
     <Div>
-      <input type="checkbox" />
+      <input type="checkbox" onChange={() => onChange()} />
     </Div>
   );
 }

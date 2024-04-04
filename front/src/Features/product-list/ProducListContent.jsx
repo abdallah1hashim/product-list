@@ -9,12 +9,14 @@ const ListLayout = styled.div`
   gap: 40px;
 `;
 
-function ProducListContent({ data }) {
-  const { data: apiData } = useProductCollection();
-  console.log(apiData);
+function ProducListContent({ deleteList }) {
+  const { data } = useProductCollection();
   return (
     <ListLayout>
-      {data && data.map((data) => <Box data={data} key={data.productId} />)}
+      {data &&
+        data.map((data) => (
+          <Box deleteList={deleteList} data={data} key={data.productId} />
+        ))}
     </ListLayout>
   );
 }
