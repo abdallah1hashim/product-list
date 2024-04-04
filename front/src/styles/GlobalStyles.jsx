@@ -111,6 +111,11 @@ ul {
   list-style: none;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
 p,
 h1,
 h2,

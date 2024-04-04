@@ -40,7 +40,6 @@ class ProductController
                 break;
             case "DELETE":
                 $data = (array)json_decode(file_get_contents("php://input"), true);
-                var_dump($data);
                 $this->gateway->deleteProduct($data["productId"]);
                 break;
         }
