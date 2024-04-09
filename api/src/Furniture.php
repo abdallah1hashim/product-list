@@ -1,5 +1,8 @@
 <?php
+namespace Furniture;
 
+use ProductInterface;
+use PDO;
  class Furniture implements ProductInterface { 
     public function insertAdditionalData(array $data, $productId, PDO $conn): void {
         $sql = "INSERT INTO furniture (value, productId) VALUES (:value, :productId)";

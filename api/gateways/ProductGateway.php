@@ -1,10 +1,28 @@
 <?php
 
-require_once __DIR__ . "/../src/ProductFactory.php";
-require_once __DIR__ . "/../src/ProductInterface.php";
-require_once __DIR__ . "/../src/Disc.php";
-require_once __DIR__ . "/../src/Furniture.php";
-require_once __DIR__ . "/../src/Book.php";
+function customAutoloader($className)
+{
+
+    $baseDir = __DIR__ . '/../src/';
+
+    $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
+
+    $filePath = $baseDir . $className . '.php';
+
+    if (file_exists($filePath)) {
+        require_once $filePath;
+    }
+}
+
+
+spl_autoload_register('customAutoloader');
+
+
+use YourNamespace\ProductFactory;
+use YourNamespace\ProductInterface;
+use YourNamespace\Disc;
+use YourNamespace\Furniture;
+use YourNamespace\Book;
 
 class ProductGateway
 {
