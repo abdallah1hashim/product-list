@@ -18,11 +18,7 @@ function customAutoloader($className)
 spl_autoload_register('customAutoloader');
 
 
-use YourNamespace\ProductFactory;
-use YourNamespace\ProductInterface;
-use YourNamespace\Disc;
-use YourNamespace\Furniture;
-use YourNamespace\Book;
+
 
 class ProductGateway
 {
@@ -32,7 +28,18 @@ class ProductGateway
     {
         $this->conn = $database->getConnection();
     }
+    private function getProductBySku(string $sku): ?array
+    {
+        $sql = "SELECT * FROM products WHERE sku = :sku";
+        $stmt = $this->conn->prepare($sql);
+        $stmt->bindValue(":sku", $sku, PDO::PARAM_STR);
+        $stmt->execute();
 
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+
+
+        return $product ? $product : null;
+    }
     public function getAll(): array
     {
         $sql = "
@@ -59,8 +66,14 @@ INNER JOIN furniture ON products.productId = furniture.productId;
         return $data;
     }
 
-    public function create(array $data): string
+    public function create(array $data): ?string
     {
+        // Check if SKU already exists
+        $existingProduct = $this->getProductBySku($data['sku']);
+        if ($existingProduct !== null) {
+            return null;
+        }
+
 
         $sql = "INSERT INTO products (name, sku, price, type)
         VALUES (:name, :sku,:price ,:type)";
@@ -70,7 +83,7 @@ INNER JOIN furniture ON products.productId = furniture.productId;
         $stmt->bindValue(":name", $data["name"], PDO::PARAM_STR);
         $stmt->bindValue(":sku", $data["sku"], PDO::PARAM_STR);
         $stmt->bindValue(":type", $data["type"], PDO::PARAM_INT);
-        $stmt->bindValue(":price", $data["price"], PDO::PARAM_INT);
+        $stmt->bindValue(":price", $data["price"], PDO::PARAM_STR);
 
         $stmt->execute();
 

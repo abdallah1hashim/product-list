@@ -1,6 +1,5 @@
 <?php
 
-namespace Disc;
 
 use PDO;
 use ProductInterface;

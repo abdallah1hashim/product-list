@@ -28,7 +28,7 @@ function Box({ data, deleteList }) {
       {data.type === 1 && <p>Dimension: {data.value}</p>}
       {data.type === 2 && <p>Weight: {data.value + " KG"}</p>}
       {data.type === 3 && <p>Size: {data.value + " MB"}</p>}
-      <Delete onChange={handleDelete} />
+      <Delete onChange={handleDelete} className="delete-checkbox" />
     </StyledBox>
   );
 }

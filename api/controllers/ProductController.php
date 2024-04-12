@@ -31,12 +31,23 @@ class ProductController
             case "POST":
                 $data = (array)json_decode(file_get_contents("php://input"), true);
                 $id = $this->gateway->create($data);
-                echo json_encode(
-                    [
-                        "message" => "Product Created",
-                        "id" => $id,
-                    ]
-                );
+                if (!$id) {
+                    http_response_code(400);
+                    echo json_encode(
+                        [
+                            'success' => false,
+                            'message' => 'SKU already exists'
+                        ]
+                    );
+                } else {
+
+                    echo json_encode(
+                        [
+                            "message" => "Product Created",
+                            "id" => $id,
+                        ]
+                    );
+                }
                 break;
             case "DELETE":
                 $data = (array)json_decode(file_get_contents("php://input"), true);

@@ -1,11 +1,11 @@
 <?php
 
-namespace ProductFactory;
 
 use ProductInterface;
 use Furniture;
 use Book;
 use Disc;
+
 use InvalidArgumentException;
 
 class ProductFactory

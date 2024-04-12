@@ -18,13 +18,13 @@ const StyledButton = styled.button`
   ${baseStyles}
 `;
 
-function Button({ children, disabled, to, onClick }) {
+function Button({ children, disabled, to, onClick, id }) {
   if (to) {
     return <StyledLink to={to}>{children}</StyledLink>;
   }
   if (onClick) {
     return (
-      <StyledButton disabled={disabled} onClick={onClick}>
+      <StyledButton disabled={disabled} onClick={onClick} id={id}>
         {children}
       </StyledButton>
     );

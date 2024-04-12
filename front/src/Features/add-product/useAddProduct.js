@@ -3,13 +3,16 @@ import { addProduct } from "../../services/apiProducts";
 import { useNavigate } from "react-router-dom";
 
 export function useAddProduct() {
-  const navigte = useNavigate();
-  const { mutate, isLoading } = useMutation({
+  const navigate = useNavigate();
+  const { mutate, error } = useMutation({
     mutationFn: addProduct,
     onSuccess: () => {
-      navigte("/");
+      navigate("/");
     },
-    onError: (err) => console.log("error", err),
+    onError: (err) => {
+      console.error(err?.response.data.message);
+    },
   });
-  return { mutate, isLoading };
+
+  return { mutate, error };
 }

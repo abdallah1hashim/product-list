@@ -36,8 +36,10 @@ function ProductList() {
       <Header>
         <h1>Product List</h1>
         <Row>
-          <Button to="addproduct">Add</Button>
-          <Button onClick={handleClick}>Mass Delete</Button>
+          <Button to="addproduct">ADD</Button>
+          <Button onClick={handleClick} id="delete-product-btn">
+            MASS DELETE
+          </Button>
         </Row>
       </Header>
       <Main>

@@ -1,6 +1,5 @@
 <?php
 
-namespace Book;
 
 use PDO;
 use ProductInterface;
