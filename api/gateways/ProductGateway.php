@@ -1,23 +1,14 @@
 <?php
 
-function customAutoloader($className)
-{
+namespace gateways;
 
-    $baseDir = __DIR__ . '/../src/';
+spl_autoload_register(function ($class) {
+    require str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+});
 
-    $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
-
-    $filePath = $baseDir . $className . '.php';
-
-    if (file_exists($filePath)) {
-        require_once $filePath;
-    }
-}
-
-
-spl_autoload_register('customAutoloader');
-
-
+use PDO;
+use services\DB;
+use src\ProductFactory;
 
 
 class ProductGateway

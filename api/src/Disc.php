@@ -1,8 +1,11 @@
 <?php
 
+namespace src;
+
 
 use PDO;
-use ProductInterface;
+use src\ProductInterface;
+
 
 class Disc implements ProductInterface
 {

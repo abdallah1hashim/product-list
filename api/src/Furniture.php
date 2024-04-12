@@ -1,8 +1,10 @@
 <?php
 
+namespace src;
 
-use ProductInterface;
 use PDO;
+use src\ProductInterface;
+
 
 class Furniture implements ProductInterface
 {

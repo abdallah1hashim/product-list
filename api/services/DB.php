@@ -1,5 +1,9 @@
 <?php
 
+namespace services;
+
+use PDO;
+
 class DB
 {
     function __construct(private string $host, private string $name, private string $user, private string $password)

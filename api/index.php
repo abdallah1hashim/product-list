@@ -1,9 +1,15 @@
 <?php
 
-require_once "errorHandler/ErrorHandler.php";
-require_once "services/DB.php";
-require_once "gateways/ProductGateway.php";
-require_once "controllers/ProductController.php";
+
+use gateways\ProductGateway;
+use services\DB;
+
+
+spl_autoload_register(function ($class) {
+    require str_replace("\\", DIRECTORY_SEPARATOR, $class) . ".php";
+});
+
+
 
 set_exception_handler("ErrorHandler::handleException");
 
@@ -30,11 +36,13 @@ $gateway = new ProductGateway($database);
 
 
 // Routes
-$urls = [
-    '/product-list/api/products' => "ProductController@processReq",
+$routes = [
+    'products' => "controllers/ProductController.php",
 ];
-$parts = explode("/", $currLink);
-$id = $parts[4] ?? null;
+
+$uri = parse_url($_SERVER["REQUEST_URI"])["path"];
+$parts = explode("/", $uri);
+
 
 // handle worng routes
 if ($parts[3] !== "products") {
@@ -42,7 +50,11 @@ if ($parts[3] !== "products") {
     exit;
 }
 
+if (array_key_exists($parts[3], $routes)) {
+    require $routes[$parts[3]];
+}
+
 
 $controller = new ProductController($gateway);
 
-$controller->processReq($method, $id);
+$controller->processReq($method);

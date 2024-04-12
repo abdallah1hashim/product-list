@@ -1,25 +1,16 @@
 <?php
 
+use gateways\ProductGateway;
+
 class ProductController
 {
     public function __construct(private ProductGateway $gateway)
     {
     }
-    public function processReq(string $method, ?string $id): void
+    public function processReq(string $method): void
     {
-        if ($id) {
-            $this->processResourceReq($method, $id);
-        } else {
+        if ($method) {
             $this->processCollectionReq($method);
-        }
-    }
-
-    private function processResourceReq(string $method, string $id): void
-    {
-        switch ($method) {
-            case "DELETE":
-                echo json_encode(["id" => $id]);
-                break;
         }
     }
     private function processCollectionReq(string $method): void

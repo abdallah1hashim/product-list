@@ -1,12 +1,16 @@
 <?php
 
+namespace src;
 
-use ProductInterface;
-use Furniture;
-use Book;
-use Disc;
+require_once "ProductInterface.php";
+
+use src\ProductInterface;
+use src\Furniture;
+use src\Book;
+use src\Disc;
 
 use InvalidArgumentException;
+
 
 class ProductFactory
 {
